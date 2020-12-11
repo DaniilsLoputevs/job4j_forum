@@ -12,6 +12,7 @@ public class ForumApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(ForumApplication.class);
     }
+
     public static void main(String[] args) {
         SpringApplication.run(ForumApplication.class, args);
     }

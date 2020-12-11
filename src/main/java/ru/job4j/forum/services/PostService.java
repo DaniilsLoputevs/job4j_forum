@@ -2,19 +2,34 @@ package ru.job4j.forum.services;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.forum.enity.Post;
+import ru.job4j.forum.repositories.PostRepository;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class PostService {
-    private final List<Post> posts = new ArrayList<>();
+    private final PostRepository posts;
 
-    public PostService() {
-        posts.add(Post.builder().name("Продаю машину ладу 01.").build());
+    public PostService(PostRepository posts) {
+        this.posts = posts;
+    }
+
+    @PostConstruct
+    public void init() {
+        this.add(Post.builder().name("О чем этот форум?").build());
+        this.add(Post.builder().name("Правила форума.").build());
+    }
+
+    public void add(Post post) {
+        posts.save(post);
     }
 
     public List<Post> getAll() {
-        return posts;
+        List<Post> rsl = new ArrayList<>();
+        posts.findAll().forEach(rsl::add);
+        return rsl;
     }
+
 }

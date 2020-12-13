@@ -1,5 +1,6 @@
 package ru.job4j.forum.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.job4j.forum.enity.Post;
 import ru.job4j.forum.repositories.PostRepository;
@@ -10,16 +11,17 @@ import java.util.List;
 
 @Service
 public class PostService {
-    private final PostRepository posts;
+    @Autowired
+    private PostRepository posts;
 
-    public PostService(PostRepository posts) {
-        this.posts = posts;
-    }
 
     @PostConstruct
     public void init() {
-        this.add(Post.builder().name("О чем этот форум?").build());
-        this.add(Post.builder().name("Правила форума.").build());
+        // if store is empty
+        if (!posts.findAll().iterator().hasNext()) {
+            this.add(Post.builder().name("О чем этот форум?").build());
+            this.add(Post.builder().name("Правила форума.").build());
+        }
     }
 
     public void add(Post post) {

@@ -13,17 +13,11 @@ import javax.persistence.*;
 //@Builder
 /* Spring JPA */
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "authorities")
+public class Authority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String password;
-    private String username;
+    private String authority;
 
-    @ManyToOne
-    @JoinColumn(name = "authority_id")
-    private Authority authority;
-
-    private boolean enabled;
 }

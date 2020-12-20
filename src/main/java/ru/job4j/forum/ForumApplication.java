@@ -15,6 +15,7 @@ public class ForumApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(ForumApplication.class, args);
+        System.err.println("APP RUN");
     }
 
 }

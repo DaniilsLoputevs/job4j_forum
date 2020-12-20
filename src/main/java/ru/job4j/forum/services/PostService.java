@@ -8,30 +8,48 @@ import ru.job4j.forum.repositories.PostRepository;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostService {
-    @Autowired
-    private PostRepository posts;
+    private final PostRepository postRepository;
 
+    @Autowired
+    public PostService(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
 
     @PostConstruct
     public void init() {
         // if store is empty
-        if (!posts.findAll().iterator().hasNext()) {
-            this.add(Post.builder().name("О чем этот форум?").build());
-            this.add(Post.builder().name("Правила форума.").build());
+        if (!postRepository.findAll().iterator().hasNext()) {
+            this.save(Post.builder().name("О чем этот форум?").build());
+            this.save(Post.builder().name("Правила форума.").build());
         }
     }
 
-    public void add(Post post) {
-        posts.save(post);
+    /**
+     * add entity, if it is NEW or update, if it exist.
+     *
+     * @param post entity.
+     */
+    public void save(Post post) {
+        postRepository.save(post);
+    }
+
+    public Post get(int id) {
+        Optional<Post> rsl = postRepository.findById(id);
+        return rsl.orElseGet(Post::new);
     }
 
     public List<Post> getAll() {
         List<Post> rsl = new ArrayList<>();
-        posts.findAll().forEach(rsl::add);
+        postRepository.findAll().forEach(rsl::add);
         return rsl;
+    }
+
+    public void delete(int id) {
+        postRepository.deleteById(id);
     }
 
 }

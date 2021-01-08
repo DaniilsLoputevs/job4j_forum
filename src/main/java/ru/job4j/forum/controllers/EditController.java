@@ -23,7 +23,7 @@ public class EditController {
     }
 
     @GetMapping({"/edit/{id}"})
-    public String index(Model model, @PathVariable String id) {
+    public String getEditDTOPostById(Model model, @PathVariable String id) {
         var post = postService.get(Integer.parseInt(id));
         var calendar = post.getCreated();
         String time = null;
@@ -39,8 +39,8 @@ public class EditController {
     }
 
     @PostMapping({"/edit/"})
-    public String index(@ModelAttribute Post post,
-                        @RequestParam("createdTime") String createdTime)
+    public String postCreateDTOPost(@ModelAttribute Post post,
+                                    @RequestParam("createdTime") String createdTime)
             throws ParseException {
 
         Calendar calendar = Calendar.getInstance();
@@ -50,8 +50,9 @@ public class EditController {
         postService.save(post);
         return "redirect:/";
     }
+
     @GetMapping({"/edit-del/{id}"})
-    public String index(@PathVariable String id) {
+    public String getEditDelById(@PathVariable String id) {
         postService.delete(Integer.parseInt(id));
         return "redirect:/";
     }

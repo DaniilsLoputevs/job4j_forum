@@ -21,10 +21,8 @@ public class RegController {
     }
 
     @Autowired
-    public RegController(
-            PasswordEncoder encoder,
-                         UserRepository users,
-                         AuthorityRepository authorities) {
+    public RegController(PasswordEncoder encoder,
+                         UserRepository users, AuthorityRepository authorities) {
         this.encoder = encoder;
         this.users = users;
         this.authorities = authorities;

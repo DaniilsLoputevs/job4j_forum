@@ -16,7 +16,7 @@ public class IndexController {
     }
 
     @GetMapping({"/", "/index"})
-    public String index(Model model) {
+    public String getIndexPag(Model model) {
         model.addAttribute("posts", posts.getAll());
         return "/index";
     }

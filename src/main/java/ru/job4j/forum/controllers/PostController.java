@@ -13,14 +13,16 @@ import java.util.Date;
 @Controller
 public class PostController {
     private final PostService posts;
+    private final SimpleDateFormat sdf;
 
     @Autowired
-    public PostController(PostService posts) {
+    public PostController(PostService posts, SimpleDateFormat sdf) {
         this.posts = posts;
+        this.sdf = sdf;
     }
 
     @GetMapping({"/post/{id}"})
-    public String index(Model model, @PathVariable String id) {
+    public String getPostById(Model model, @PathVariable String id) {
         var rsl = posts.get(Integer.parseInt(id));
         var calendar = rsl.getCreated();
         Date time = null;
@@ -29,10 +31,9 @@ public class PostController {
         }
 
         model.addAttribute("post", rsl);
-        model.addAttribute("createdTime",
-                new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(
-                        time
-                )
+        model.addAttribute("createdTime", (time != null)
+                ? sdf.format(time)
+                : "yyyy-MM-dd hh:mm:ss"
         );
         return "/post";
     }

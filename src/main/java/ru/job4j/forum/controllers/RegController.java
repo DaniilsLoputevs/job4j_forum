@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.job4j.forum.aop.Log;
 import ru.job4j.forum.enity.User;
 import ru.job4j.forum.repositories.AuthorityRepository;
 import ru.job4j.forum.repositories.UserRepository;
@@ -29,6 +30,7 @@ public class RegController {
     }
 
     @PostMapping("/reg")
+    @Log
     public String save(@ModelAttribute User user) {
         user.setEnabled(true);
         user.setPassword(encoder.encode(user.getPassword()));
@@ -38,6 +40,7 @@ public class RegController {
     }
 
     @GetMapping("/reg")
+    @Log
     public String reg() {
         return "reg";
     }

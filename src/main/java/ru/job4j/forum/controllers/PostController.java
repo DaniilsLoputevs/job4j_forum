@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import ru.job4j.forum.aop.Log;
 import ru.job4j.forum.services.PostService;
 
 import java.text.SimpleDateFormat;
@@ -22,6 +23,7 @@ public class PostController {
     }
 
     @GetMapping({"/post/{id}"})
+    @Log
     public String getPostById(Model model, @PathVariable String id) {
         var rsl = posts.get(Integer.parseInt(id));
         var calendar = rsl.getCreated();

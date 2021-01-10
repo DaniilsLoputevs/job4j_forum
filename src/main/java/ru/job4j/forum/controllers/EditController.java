@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.job4j.forum.aop.Log;
 import ru.job4j.forum.enity.Post;
 import ru.job4j.forum.services.PostService;
 
@@ -23,6 +24,7 @@ public class EditController {
     }
 
     @GetMapping({"/edit/{id}"})
+    @Log
     public String getEditDTOPostById(Model model, @PathVariable String id) {
         var post = postService.get(Integer.parseInt(id));
         var calendar = post.getCreated();
@@ -39,6 +41,7 @@ public class EditController {
     }
 
     @PostMapping({"/edit/"})
+    @Log
     public String postCreateDTOPost(@ModelAttribute Post post,
                                     @RequestParam("createdTime") String createdTime)
             throws ParseException {
@@ -52,6 +55,7 @@ public class EditController {
     }
 
     @GetMapping({"/edit-del/{id}"})
+    @Log
     public String getEditDelById(@PathVariable String id) {
         postService.delete(Integer.parseInt(id));
         return "redirect:/";

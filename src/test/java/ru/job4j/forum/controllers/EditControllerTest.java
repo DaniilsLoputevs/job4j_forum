@@ -49,10 +49,10 @@ class EditControllerTest {
                 .desc("На самом деле это \"Aurus Mr. President\"")
                 .build();
         this.mockMvc.perform(post("/edit/")
-                .param("createdTime","2020-12-14 19:03:00")
+                .param("createdTime", "2020-12-14 19:03:00")
                 .flashAttr("post", requestDTO))
                 .andDo(print())
-            .andExpect(status().is3xxRedirection());
+                .andExpect(status().is3xxRedirection());
         ArgumentCaptor<Post> argument = ArgumentCaptor.forClass(Post.class);
         verify(postService).save(argument.capture());
 

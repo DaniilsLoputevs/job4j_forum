@@ -34,7 +34,7 @@ class IndexControllerTest {
     void getIndexPagMappingSecond() throws Exception {
         this.mockMvc.perform(get("/index"))
                 .andDo(print())
-                .andExpect( status().isOk());
+                .andExpect(status().isOk());
     }
 
 

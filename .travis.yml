@@ -20,3 +20,6 @@ before_install:
 
 install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+before_script:
+  - psql -c 'create database job4j_forum;' -U postgres

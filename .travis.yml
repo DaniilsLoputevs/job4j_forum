@@ -6,7 +6,6 @@ jdk:
 services:
   - postgresql
 
-
 # Отправлять уведомление на почту laiwiense@gmail.com
 notifications:
   email:
@@ -18,8 +17,15 @@ notifications:
 before_install:
   - chmod +x mvnw
 
-install:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+install: true
+  - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
+# create psql database
 before_script:
   - psql -c 'create database job4j_forum;' -U postgres
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: A+TJ5Bwpi2p8jChNEDHZAfGNeSyh6EnA+dqnxNVXaSwack7ItvDqTcLeH+iZ9Wx0HSjTv5EadgKGL20lriBj+13zenioRckqdoPSTJ124x0OOYwcVyqztC6QATt4fIU1CKW7xWoUg0MesE13tfe7VJyUFLpd377/nwA6ifBK7f3n2ZVQQCkr9RKPG6oU6OI8IOq00gJySeiBqkmib7PEGer7sziqf+ZrkpdGqwYVIdThDp9tn7Gv/rN8p4HRNFBI7SSLIWwyLLU2aURvRLma7XBMvhrPyKSQii4i9mdBpBYqgq+gcAsD+p2LutTvsZpDWWLefJGy68fCljEyAp90K6HcxGNDYlvJwj8SE8qklnp8REHOC4VHKsdZaVTCAtrOjGSLcLgJwsGbo8PtS41ffKBAOgrB0CatSpdeR5ap2GPkv0G/3EDCcaDCqsACNGfbh2Dz4Ap2Ahl1xPFt3rxSMdCsmYjFtVks3VDEnpG2i9rooAaZCowCf9QCAtHurWippr7UosNpfiXA6e8IoWeKNtX+r8xonhFLSL362jB5wIr5wmRUjagwUREQh+KneksgCesb73O0nFtmDnZkaUa3VUne1JWETDWJvbnL43zABDSdTkzobsiZC5FpGzR1DsZowAGgsWXZfuiE+4VFDy1WpS7YI3evLs4LGF1Phtrxv9M=
+  app: damp-forest-09258

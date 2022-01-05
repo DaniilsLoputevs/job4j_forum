@@ -44,7 +44,10 @@
             <tbody>
             <c:forEach items="${posts}" var="post">
                 <tr>
-                    <td><c:out value="${post.name}"/></td>
+                    <td>
+                        <a class="nav-link" href="<c:out value="/post/${post.id}"/>">
+                            <c:out value="${post.name}"/></a>
+                    </td>
                     <td><a href='<c:url value="/edit/${post.id}"/>'>
                         <i class="fa fa-edit mr-3"></i>
                     </a></td>
